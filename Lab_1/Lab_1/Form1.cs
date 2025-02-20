@@ -34,5 +34,39 @@ namespace Lab_1
             }
             
         }
+
+        private void инверсияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters inverse = new InverseFilter();
+            backgroundWorker1.RunWorkerAsync(inverse);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            backgroundWorker1.CancelAsync();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Bitmap newImage = ((Filters)e.Argument).process_image(image, backgroundWorker1);
+            if( backgroundWorker1.CancellationPending != true)
+            {
+                image = newImage;
+            }
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (!e.Cancelled) {
+                pictureBox1.Image = image;
+                pictureBox1.Refresh();
+            }
+            progressBar1.Value = 0;
+        }
     }
 }
