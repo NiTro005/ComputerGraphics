@@ -1,8 +1,16 @@
 .vs/
 
-.obj/
+obj/Debug/
+bin/Debug/
 
-.pdb
-.ilk
-.exe
-.dll
+*.pdb
+*.ilk
+*.exe
+*.dll
+*.cache
+*.suo
+*.user
+*.aps
+*.ncb
+*.sdf
+*.opensdf
