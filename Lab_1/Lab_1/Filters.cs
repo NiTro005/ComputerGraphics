@@ -9,18 +9,21 @@ namespace Lab_1
 {
     abstract class Filters
     {
-        protected abstract Color calculateNewPixelColor(Bitmap sourseImage, int x, int y);
-        public Bitmap process_image(Bitmap sourseImage)
+        protected abstract Color calculateNewPixelColor(Bitmap sourceImage, int x, int y);
+
+        public Bitmap process_image(Bitmap sourceImage)
         {
-            Bitmap newImage = new Bitmap(sourseImage.Width, sourseImage.Height);
-            for (int i = 0; i < sourseImage.Width; i++) { 
-                for (int j = 0; j < sourseImage.Height; j++)
+            Bitmap newImage = new Bitmap(sourceImage.Width, sourceImage.Height);
+            for (int i = 0; i < sourceImage.Width; i++)
+            {
+                for (int j = 0; j < sourceImage.Height; j++)
                 {
-                    newImage.SetPixel(i, j, calculateNewPixelColor(sourseImage, i, j));
+                    newImage.SetPixel(i, j, calculateNewPixelColor(sourceImage, i, j));
                 }
             }
             return newImage;
         }
+
         public int Clamp(int value, int min, int max)
         {
             if (value < min)
