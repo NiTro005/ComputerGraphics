@@ -75,5 +75,11 @@ namespace Lab_1
             backgroundWorker1.RunWorkerAsync(fil);
 
         }
+
+        private void фильтрГаусаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new GaussianFilter();
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
     }
 }
