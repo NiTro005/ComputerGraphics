@@ -93,5 +93,11 @@ namespace Lab_1
             Filters fil = new SepiaFilter();
             backgroundWorker1.RunWorkerAsync(fil);
         }
+
+        private void яркостьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new BrightFilter();
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
     }
 }

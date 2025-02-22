@@ -82,4 +82,17 @@ namespace Lab_1
         }
     }
 
+    internal class BrightFilter : Filters
+    {
+        protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
+        {
+            int bright = 50;
+            Color source_color = sourceImage.GetPixel(x, y);
+            int R = Clamp(source_color.R + bright, 0, 255);
+            int G = Clamp(source_color.G + bright, 0, 255);
+            int B = Clamp(source_color.B + bright, 0, 255);
+            return Color.FromArgb(R, G, B);
+        }
+    }
+
 }
