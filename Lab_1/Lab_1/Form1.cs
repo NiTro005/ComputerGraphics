@@ -99,5 +99,17 @@ namespace Lab_1
             Filters fil = new BrightFilter();
             backgroundWorker1.RunWorkerAsync(fil);
         }
+
+        private void фильтрСобеляToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new SobelFilter();
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
+
+        private void резкостьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new SharpFilter();
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
     }
 }
