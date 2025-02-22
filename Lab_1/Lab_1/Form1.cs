@@ -81,5 +81,11 @@ namespace Lab_1
             Filters fil = new GaussianFilter();
             backgroundWorker1.RunWorkerAsync(fil);
         }
+
+        private void оттенкиСерогоToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new GrayScaleFilter();
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
     }
 }

@@ -58,4 +58,14 @@ namespace Lab_1
             return new_color;
         }
     }
+    internal class GrayScaleFilter: Filters
+    {
+        protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
+        {
+            Color source_color = sourceImage.GetPixel(x, y);
+            float Itensity = 0.299f * source_color.R + 0.587f * source_color.G + 0.114f * source_color.B;
+            return Color.FromArgb((int)Itensity, (int)Itensity, (int)Itensity);
+
+        }
+    }
 }
