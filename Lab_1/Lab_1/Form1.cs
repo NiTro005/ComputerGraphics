@@ -68,5 +68,12 @@ namespace Lab_1
             }
             progressBar1.Value = 0;
         }
+
+        private void блюрToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil= new BlurFilter();
+            backgroundWorker1.RunWorkerAsync(fil);
+
+        }
     }
 }
