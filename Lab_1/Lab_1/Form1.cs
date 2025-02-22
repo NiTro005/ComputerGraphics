@@ -87,5 +87,11 @@ namespace Lab_1
             Filters fil = new GrayScaleFilter();
             backgroundWorker1.RunWorkerAsync(fil);
         }
+
+        private void сепияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new SepiaFilter();
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
     }
 }

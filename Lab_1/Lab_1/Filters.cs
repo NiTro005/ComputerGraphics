@@ -68,4 +68,18 @@ namespace Lab_1
 
         }
     }
+    internal class SepiaFilter : Filters
+    {
+        protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
+        {
+            int k = 32;
+            Color source_color = sourceImage.GetPixel(x, y);
+            float Itensity = 0.299f * source_color.R + 0.587f * source_color.G + 0.114f * source_color.B;
+            int R = Clamp((int)Itensity + 2 * k, 0, 255);
+            int G = Clamp((int)Itensity + (int)(0.5 * k), 0, 255);
+            int B = Clamp((int)Itensity - 1 * k, 0, 255);
+            return Color.FromArgb(R, G, B);
+        }
+    }
+
 }
