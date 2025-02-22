@@ -14,16 +14,24 @@ namespace Lab_1
 
         public Bitmap process_image(Bitmap sourceImage, BackgroundWorker backgroundWorker)
         {
+            int pixelCount = 0;
+            int totalPixels = sourceImage.Width * sourceImage.Height;
             Bitmap newImage = new Bitmap(sourceImage.Width, sourceImage.Height);
             for (int i = 0; i < sourceImage.Width; i++)
             {
-                backgroundWorker.ReportProgress((int)(float)i / newImage.Width * 100);
                 if (backgroundWorker.CancellationPending) return null;
                 for (int j = 0; j < sourceImage.Height; j++)
                 {
                     newImage.SetPixel(i, j, calculateNewPixelColor(sourceImage, i, j));
+                    pixelCount++;
+                    if(pixelCount == 0)
+                    {
+                        int progress = (int)((float)pixelCount / totalPixels * 100);
+                        backgroundWorker.ReportProgress(progress);
+                    }
                 }
             }
+            backgroundWorker.ReportProgress(100);
             return newImage;
         }
 
