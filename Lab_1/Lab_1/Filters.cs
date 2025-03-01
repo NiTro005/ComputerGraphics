@@ -101,5 +101,21 @@ namespace Lab_1
             return Color.FromArgb(R, G, B);
         }
     }
-
+    internal class ContrastFilter : Filters
+    {
+        private double contrastFactor = 0;
+        public ContrastFilter(double contrastFactor)
+        {
+            this.contrastFactor = contrastFactor;
+        }
+        protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
+        {
+            Color source_color = sourceImage.GetPixel(x, y);
+            double mean = (source_color.R + source_color.G + source_color.B) / 3.0;
+            int R = Clamp((int)(source_color.R + (source_color.R - mean) * contrastFactor), 0, 255);
+            int G = Clamp((int)(source_color.G + (source_color.G - mean) * contrastFactor), 0, 255);
+            int B = Clamp((int)(source_color.B + (source_color.B - mean) * contrastFactor), 0, 255);
+            return Color.FromArgb(R, G, B);
+        }
+    }
 }

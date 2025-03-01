@@ -13,6 +13,7 @@ namespace Lab_1
     public partial class Form1 : Form
     {
         Bitmap image;
+        Bitmap orig_image;
         public Form1()
         {
             InitializeComponent();
@@ -30,6 +31,7 @@ namespace Lab_1
             {
                 image = new Bitmap(dialog.FileName);
                 pictureBox1.Image = image;
+                orig_image = image;
                 pictureBox1.Refresh();
             }
             
@@ -114,8 +116,24 @@ namespace Lab_1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Filters fil = new BrightFilter(trackBar1.Value);
-            backgroundWorker1.RunWorkerAsync(fil);
+            image = orig_image;
+            if (trackBar1.Value != 0)
+            {
+                Filters fil = new BrightFilter(trackBar1.Value);
+                backgroundWorker1.RunWorkerAsync(fil);
+            }
+            if (trackBar3.Value != 0)
+            {
+                Filters fil = new ContrastFilter((double)trackBar3.Value/10);
+                backgroundWorker1.RunWorkerAsync(fil);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Image = orig_image;
+            image = orig_image;
+            pictureBox1.Refresh();
         }
     }
 }
