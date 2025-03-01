@@ -111,5 +111,11 @@ namespace Lab_1
             Filters fil = new SharpFilter();
             backgroundWorker1.RunWorkerAsync(fil);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Filters fil = new BrightFilter(trackBar1.Value);
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
     }
 }

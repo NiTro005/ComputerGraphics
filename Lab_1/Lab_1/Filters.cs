@@ -24,7 +24,7 @@ namespace Lab_1
                 {
                     newImage.SetPixel(i, j, calculateNewPixelColor(sourceImage, i, j));
                     pixelCount++;
-                    if(pixelCount == 0)
+                    if(pixelCount != 0)
                     {
                         int progress = (int)((float)pixelCount / totalPixels * 100);
                         backgroundWorker.ReportProgress(progress);
@@ -84,9 +84,16 @@ namespace Lab_1
 
     internal class BrightFilter : Filters
     {
+        private int bright = 50;
+
+        public BrightFilter(int bright)
+        {
+            this.bright = bright;
+        }
+        public BrightFilter() { }
+
         protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
         {
-            int bright = 50;
             Color source_color = sourceImage.GetPixel(x, y);
             int R = Clamp(source_color.R + bright, 0, 255);
             int G = Clamp(source_color.G + bright, 0, 255);
