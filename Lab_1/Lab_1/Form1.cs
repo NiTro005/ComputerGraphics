@@ -135,5 +135,11 @@ namespace Lab_1
             image = orig_image;
             pictureBox1.Refresh();
         }
+
+        private void сдвигToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new ShiftFilter();
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
     }
 }

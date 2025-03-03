@@ -118,4 +118,17 @@ namespace Lab_1
             return Color.FromArgb(R, G, B);
         }
     }
+
+    internal class ShiftFilter: Filters
+    {
+        protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
+        {
+            int shiftAmount = 50;
+            if (x < shiftAmount) { 
+                return Color.FromArgb(0, 0, 0);
+            } else {
+                return sourceImage.GetPixel(x - shiftAmount, y);
+            }
+        }
+    } 
 }

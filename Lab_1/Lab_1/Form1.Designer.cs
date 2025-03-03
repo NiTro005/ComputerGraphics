@@ -54,6 +54,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.сдвигToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -114,36 +115,37 @@
             this.инверсияToolStripMenuItem,
             this.оттенкиСерогоToolStripMenuItem,
             this.сепияToolStripMenuItem,
-            this.яркостьToolStripMenuItem});
+            this.яркостьToolStripMenuItem,
+            this.сдвигToolStripMenuItem});
             this.точечныеToolStripMenuItem.Name = "точечныеToolStripMenuItem";
-            this.точечныеToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
+            this.точечныеToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.точечныеToolStripMenuItem.Text = "Точечные";
             // 
             // инверсияToolStripMenuItem
             // 
             this.инверсияToolStripMenuItem.Name = "инверсияToolStripMenuItem";
-            this.инверсияToolStripMenuItem.Size = new System.Drawing.Size(200, 26);
+            this.инверсияToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.инверсияToolStripMenuItem.Text = "Инверсия";
             this.инверсияToolStripMenuItem.Click += new System.EventHandler(this.инверсияToolStripMenuItem_Click);
             // 
             // оттенкиСерогоToolStripMenuItem
             // 
             this.оттенкиСерогоToolStripMenuItem.Name = "оттенкиСерогоToolStripMenuItem";
-            this.оттенкиСерогоToolStripMenuItem.Size = new System.Drawing.Size(200, 26);
+            this.оттенкиСерогоToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.оттенкиСерогоToolStripMenuItem.Text = "Оттенки серого";
             this.оттенкиСерогоToolStripMenuItem.Click += new System.EventHandler(this.оттенкиСерогоToolStripMenuItem_Click);
             // 
             // сепияToolStripMenuItem
             // 
             this.сепияToolStripMenuItem.Name = "сепияToolStripMenuItem";
-            this.сепияToolStripMenuItem.Size = new System.Drawing.Size(200, 26);
+            this.сепияToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.сепияToolStripMenuItem.Text = "Сепия";
             this.сепияToolStripMenuItem.Click += new System.EventHandler(this.сепияToolStripMenuItem_Click);
             // 
             // яркостьToolStripMenuItem
             // 
             this.яркостьToolStripMenuItem.Name = "яркостьToolStripMenuItem";
-            this.яркостьToolStripMenuItem.Size = new System.Drawing.Size(200, 26);
+            this.яркостьToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.яркостьToolStripMenuItem.Text = "Яркость";
             this.яркостьToolStripMenuItem.Click += new System.EventHandler(this.яркостьToolStripMenuItem_Click);
             // 
@@ -155,7 +157,7 @@
             this.фильтрСобеляToolStripMenuItem,
             this.резкостьToolStripMenuItem});
             this.матричныеToolStripMenuItem.Name = "матричныеToolStripMenuItem";
-            this.матричныеToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
+            this.матричныеToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.матричныеToolStripMenuItem.Text = "Матричные";
             // 
             // блюрToolStripMenuItem
@@ -284,6 +286,13 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // сдвигToolStripMenuItem
+            // 
+            this.сдвигToolStripMenuItem.Name = "сдвигToolStripMenuItem";
+            this.сдвигToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.сдвигToolStripMenuItem.Text = "Сдвиг";
+            this.сдвигToolStripMenuItem.Click += new System.EventHandler(this.сдвигToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -343,6 +352,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ToolStripMenuItem сдвигToolStripMenuItem;
     }
 }
 
