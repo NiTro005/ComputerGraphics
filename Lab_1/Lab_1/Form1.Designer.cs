@@ -58,6 +58,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.autolevelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.идеальныйОтражательToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.вертикальноToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.горизонтальноToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -121,7 +124,8 @@
             this.яркостьToolStripMenuItem,
             this.сдвигToolStripMenuItem,
             this.серыйМирToolStripMenuItem,
-            this.autolevelToolStripMenuItem});
+            this.autolevelToolStripMenuItem,
+            this.идеальныйОтражательToolStripMenuItem});
             this.точечныеToolStripMenuItem.Name = "точечныеToolStripMenuItem";
             this.точечныеToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.точечныеToolStripMenuItem.Text = "Точечные";
@@ -320,6 +324,29 @@
             this.autolevelToolStripMenuItem.Text = "Autolevels";
             this.autolevelToolStripMenuItem.Click += new System.EventHandler(this.autolevelToolStripMenuItem_Click);
             // 
+            // идеальныйОтражательToolStripMenuItem
+            // 
+            this.идеальныйОтражательToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.вертикальноToolStripMenuItem,
+            this.горизонтальноToolStripMenuItem});
+            this.идеальныйОтражательToolStripMenuItem.Name = "идеальныйОтражательToolStripMenuItem";
+            this.идеальныйОтражательToolStripMenuItem.Size = new System.Drawing.Size(257, 26);
+            this.идеальныйОтражательToolStripMenuItem.Text = "Идеальный отражатель";
+            // 
+            // вертикальноToolStripMenuItem
+            // 
+            this.вертикальноToolStripMenuItem.Name = "вертикальноToolStripMenuItem";
+            this.вертикальноToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.вертикальноToolStripMenuItem.Text = "Вертикально";
+            this.вертикальноToolStripMenuItem.Click += new System.EventHandler(this.вертикальноToolStripMenuItem_Click);
+            // 
+            // горизонтальноToolStripMenuItem
+            // 
+            this.горизонтальноToolStripMenuItem.Name = "горизонтальноToolStripMenuItem";
+            this.горизонтальноToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.горизонтальноToolStripMenuItem.Text = "Горизонтально";
+            this.горизонтальноToolStripMenuItem.Click += new System.EventHandler(this.горизонтальноToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -383,6 +410,9 @@
         private System.Windows.Forms.ToolStripMenuItem тиснениеToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem серыйМирToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem autolevelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem идеальныйОтражательToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem вертикальноToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem горизонтальноToolStripMenuItem;
     }
 }
 

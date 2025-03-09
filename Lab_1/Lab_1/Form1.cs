@@ -159,5 +159,17 @@ namespace Lab_1
             Filters fil = new AutolevelFilter(image);
             backgroundWorker1.RunWorkerAsync(fil);
         }
+
+        private void вертикальноToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new MirrorFilter(MirrorFilter.MirrorType.Vertical);
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
+
+        private void горизонтальноToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new MirrorFilter(MirrorFilter.MirrorType.Horizontal);
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
     }
 }

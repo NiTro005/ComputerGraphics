@@ -230,4 +230,36 @@ namespace Lab_1
             return Color.FromArgb(newR, newG, newB);
         }
     }
+    internal class MirrorFilter : Filters
+    {
+        public enum MirrorType
+        {
+            Horizontal,
+            Vertical
+        }
+
+        private MirrorType mirrorType;
+
+        public MirrorFilter(MirrorType mirrorType)
+        {
+            this.mirrorType = mirrorType;
+        }
+
+        protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
+        {
+            if (mirrorType == MirrorType.Horizontal)
+            {
+                int mirroredX = sourceImage.Width - x - 1;
+                return sourceImage.GetPixel(mirroredX, y);
+            }
+
+            if (mirrorType == MirrorType.Vertical)
+            {
+                int mirroredY = sourceImage.Height - y - 1;
+                return sourceImage.GetPixel(x, mirroredY);
+            }
+
+            return sourceImage.GetPixel(x, y);
+        }
+    }
 }
