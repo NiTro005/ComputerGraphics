@@ -128,26 +128,32 @@ namespace Lab_1
         }
     }
 
-    internal class EmbosFilter : MatrixFilter
+    internal class EmbossFilter : MatrixFilter
     {
-        public EmbosFilter()
+        private int brightnessShift;
+
+        public EmbossFilter()
         {
-            kernel = new float[3, 3]
-            {
-                {0, +1, 0 },
-                {-1, 0, +1 },
-                {0, -1, 0 }
-            };
+            kernel = new float[,] {
+            { 0,  1,  0 },
+            { -1, 0,  1 },
+            { 0, -1,  0 }
+        };
+            brightnessShift = 100;
         }
+
         protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
         {
-            BrightFilter br = new BrightFilter(100);
-            GrayScaleFilter g = new GrayScaleFilter();
-            MatrixFilter mat = new MatrixFilter(kernel);
-            Color color = g.pixel(sourceImage, x, y);
-            color = mat.ApplyFilter(sourceImage, x, y);
-            color = br.pixel(sourceImage, x, y);
-            return color;
+            Color baseColor = base.calculateNewPixelColor(sourceImage, x, y);
+
+            int newR = Clamp(baseColor.R + brightnessShift, 0, 255);
+            int newG = Clamp(baseColor.G + brightnessShift, 0, 255);
+            int newB = Clamp(baseColor.B + brightnessShift, 0, 255);
+
+            int gray = (int)(0.299 * newR + 0.587 * newG + 0.114 * newB);
+            gray = Clamp(gray, 0, 255);
+
+            return Color.FromArgb(gray, gray, gray);
         }
     }
 }

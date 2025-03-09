@@ -144,7 +144,7 @@ namespace Lab_1
 
         private void тиснениеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Filters fil = new EmbosFilter();
+            Filters fil = new EmbossFilter();
             backgroundWorker1.RunWorkerAsync(fil);
         }
 
