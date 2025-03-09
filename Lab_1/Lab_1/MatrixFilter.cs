@@ -156,4 +156,44 @@ namespace Lab_1
             return Color.FromArgb(gray, gray, gray);
         }
     }
+
+    internal class DilationFilter : MatrixFilter
+    {
+        public DilationFilter()
+        {
+            kernel = new float[,] {
+                { 0, 1, 0 },
+                { 1, 1, 1 },
+                { 0, 1, 0 }
+            };
+        }
+
+        protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
+        {
+            int radiusX = kernel.GetLength(0) / 2;
+            int radiusY = kernel.GetLength(1) / 2;
+
+            int maxR = 0, maxG = 0, maxB = 0;
+
+            for (int i = -radiusX; i <= radiusX; i++)
+            {
+                for (int j = -radiusY; j <= radiusY; j++)
+                {
+                    if (kernel[i + radiusX, j + radiusY] == 1)
+                    {
+                        int Xneib = Clamp(x + j, 0, sourceImage.Width - 1);
+                        int Yneib = Clamp(y + i, 0, sourceImage.Height - 1);
+
+                        Color neibColor = sourceImage.GetPixel(Xneib, Yneib);
+
+                        if (neibColor.R > maxR) maxR = neibColor.R;
+                        if (neibColor.G > maxG) maxG = neibColor.G;
+                        if (neibColor.B > maxB) maxB = neibColor.B;
+                    }
+                }
+            }
+            return Color.FromArgb(maxR, maxG, maxB);
+        }
+    }
+
 }

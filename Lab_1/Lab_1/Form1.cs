@@ -171,5 +171,11 @@ namespace Lab_1
             Filters fil = new MirrorFilter(MirrorFilter.MirrorType.Horizontal);
             backgroundWorker1.RunWorkerAsync(fil);
         }
+
+        private void расширениеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new DilationFilter();
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
     }
 }
