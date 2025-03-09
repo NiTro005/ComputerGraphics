@@ -127,4 +127,27 @@ namespace Lab_1
             };
         }
     }
+
+    internal class EmbosFilter : MatrixFilter
+    {
+        public EmbosFilter()
+        {
+            kernel = new float[3, 3]
+            {
+                {0, +1, 0 },
+                {-1, 0, +1 },
+                {0, -1, 0 }
+            };
+        }
+        protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
+        {
+            BrightFilter br = new BrightFilter(100);
+            GrayScaleFilter g = new GrayScaleFilter();
+            MatrixFilter mat = new MatrixFilter(kernel);
+            Color color = g.pixel(sourceImage, x, y);
+            color = mat.ApplyFilter(sourceImage, x, y);
+            color = br.pixel(sourceImage, x, y);
+            return color;
+        }
+    }
 }

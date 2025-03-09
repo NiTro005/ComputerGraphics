@@ -141,5 +141,23 @@ namespace Lab_1
             Filters fil = new ShiftFilter();
             backgroundWorker1.RunWorkerAsync(fil);
         }
+
+        private void тиснениеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new EmbosFilter();
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
+
+        private void серыйМирToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new GrayWorldFilter(image);
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
+
+        private void autolevelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new AutolevelFilter(image);
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
     }
 }

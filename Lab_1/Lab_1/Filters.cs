@@ -47,6 +47,10 @@ namespace Lab_1
             }
             return value;
         }
+        public Color pixel(Bitmap sourceImage, int x, int y)
+        {
+            return calculateNewPixelColor((Bitmap)sourceImage, x, y);
+        }
     }
 
     internal class InverseFilter : Filters
@@ -131,4 +135,99 @@ namespace Lab_1
             }
         }
     } 
+
+    internal class GrayWorldFilter: Filters
+    {
+        private float avgR, avgG, avgB;
+
+        public GrayWorldFilter(Bitmap sourceImage)
+        {
+            CalculateAverages(sourceImage);
+        }
+
+        private void CalculateAverages(Bitmap sourceImage)
+        {
+            long sumR = 0, sumG = 0, sumB = 0;
+            int pixelCount = sourceImage.Width * sourceImage.Height;
+
+            for (int x = 0; x < sourceImage.Width; x++)
+            {
+                for (int y = 0; y < sourceImage.Height; y++)
+                {
+                    Color pixelColor = sourceImage.GetPixel(x, y);
+                    sumR += pixelColor.R;
+                    sumG += pixelColor.G;
+                    sumB += pixelColor.B;
+                }
+            }
+
+            avgR = sumR / (float)pixelCount;
+            avgG = sumG / (float)pixelCount;
+            avgB = sumB / (float)pixelCount;
+        }
+        protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
+        {
+            Color originalColor = sourceImage.GetPixel(x, y);
+
+            float gray = (avgR + avgG + avgB) / 3.0f;
+
+            int newR = Clamp((int)(originalColor.R * (gray / avgR)), 0, 255);
+            int newG = Clamp((int)(originalColor.G * (gray / avgG)), 0, 255);
+            int newB = Clamp((int)(originalColor.B * (gray / avgB)), 0, 255);
+
+            return Color.FromArgb(newR, newG, newB);
+        }
+    }
+
+    internal class AutolevelFilter : Filters
+    {
+        private int minR, maxR;
+        private int minG, maxG;
+        private int minB, maxB;
+        public AutolevelFilter(Bitmap sourceImage)
+        {
+            minR = 255;
+            maxR = 0;
+            minG = 255;
+            maxG = 0;
+            minB = 255;
+            maxB = 0;
+
+            for (int i = 0; i < sourceImage.Width; i++)
+            {
+                for (int j = 0; j < sourceImage.Height; j++)
+                {
+                    Color pixelColor = sourceImage.GetPixel(i, j);
+                    int r = pixelColor.R;
+                    int g = pixelColor.G;
+                    int b = pixelColor.B;
+
+                    if (r < minR) minR = r;
+                    if (r > maxR) maxR = r;
+                    if (g < minG) minG = g;
+                    if (g > maxG) maxG = g;
+                    if (b < minB) minB = b;
+                    if (b > maxB) maxB = b;
+                }
+            }
+        }
+
+        protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
+        {
+            Color originalColor = sourceImage.GetPixel(x, y);
+            int originalR = originalColor.R;
+            int originalG = originalColor.G;
+            int originalB = originalColor.B;
+
+            int newR = (int)((float)(originalR - minR) / (maxR - minR) * 255);
+            int newG = (int)((float)(originalG - minG) / (maxG - minG) * 255);
+            int newB = (int)((float)(originalB - minB) / (maxB - minB) * 255);
+
+            newR = Clamp(newR, 0, 255);
+            newG = Clamp(newG, 0, 255);
+            newB = Clamp(newB, 0, 255);
+
+            return Color.FromArgb(newR, newG, newB);
+        }
+    }
 }
