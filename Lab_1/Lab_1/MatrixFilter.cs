@@ -196,4 +196,96 @@ namespace Lab_1
         }
     }
 
+    internal class ErosionFilter : MatrixFilter
+    {
+        public ErosionFilter()
+        {
+            kernel = new float[,] {
+                { 0, 1, 0 },
+                { 1, 1, 1 },
+                { 0, 1, 0 }
+            };
+        }
+
+        protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
+        {
+            int radiusX = kernel.GetLength(0) / 2;
+            int radiusY = kernel.GetLength(1) / 2;
+
+            int minR = 255, minG = 255, minB = 255;
+
+            for (int i = -radiusX; i <= radiusX; i++)
+            {
+                for (int j = -radiusY; j <= radiusY; j++)
+                {
+                    if (kernel[i + radiusX, j + radiusY] == 1)
+                    {
+                        int Xneib = Clamp(x + j, 0, sourceImage.Width - 1);
+                        int Yneib = Clamp(y + i, 0, sourceImage.Height - 1);
+
+                        Color neibColor = sourceImage.GetPixel(Xneib, Yneib);
+
+                        if (neibColor.R < minR) minR = neibColor.R;
+                        if (neibColor.G < minG) minG = neibColor.G;
+                        if (neibColor.B < minB) minB = neibColor.B;
+                    }
+                }
+            }
+            return Color.FromArgb(minR, minG, minB);
+        }
+    }
+
+    internal class ScharrFilter : Filters
+    {
+        private float[,] kernelX = new float[,]
+        {
+        { -3, 0, +3 },
+        { -10, 0, +10 },
+        { -3, 0, +3 }
+        };
+
+        private float[,] kernelY = new float[,]
+        {
+        { -3, -10, -3 },
+        { 0, 0, 0 },
+        { +3, +10, +3 }
+        };
+
+        protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
+        {
+            int radiusX = kernelX.GetLength(0) / 2;
+            int radiusY = kernelX.GetLength(1) / 2;
+
+            float resultRx = 0, resultGx = 0, resultBx = 0;
+            float resultRy = 0, resultGy = 0, resultBy = 0;
+
+            for (int l = -radiusY; l <= radiusY; l++)
+            {
+                for (int k = -radiusX; k <= radiusX; k++)
+                {
+                    int idX = Clamp(x + k, 0, sourceImage.Width - 1);
+                    int idY = Clamp(y + l, 0, sourceImage.Height - 1);
+                    Color neighborColor = sourceImage.GetPixel(idX, idY);
+
+                    resultRx += neighborColor.R * kernelX[k + radiusX, l + radiusY];
+                    resultGx += neighborColor.G * kernelX[k + radiusX, l + radiusY];
+                    resultBx += neighborColor.B * kernelX[k + radiusX, l + radiusY];
+
+                    resultRy += neighborColor.R * kernelY[k + radiusX, l + radiusY];
+                    resultGy += neighborColor.G * kernelY[k + radiusX, l + radiusY];
+                    resultBy += neighborColor.B * kernelY[k + radiusX, l + radiusY];
+                }
+            }
+
+            int gradientR = (int)Math.Sqrt(resultRx * resultRx + resultRy * resultRy);
+            int gradientG = (int)Math.Sqrt(resultGx * resultGx + resultGy * resultGy);
+            int gradientB = (int)Math.Sqrt(resultBx * resultBx + resultBy * resultBy);
+
+            gradientR = Clamp(gradientR, 0, 255);
+            gradientG = Clamp(gradientG, 0, 255);
+            gradientB = Clamp(gradientB, 0, 255);
+
+            return Color.FromArgb(gradientR, gradientG, gradientB);
+        }
+    }
 }

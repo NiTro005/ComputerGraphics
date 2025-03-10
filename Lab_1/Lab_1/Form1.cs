@@ -177,5 +177,23 @@ namespace Lab_1
             Filters fil = new DilationFilter();
             backgroundWorker1.RunWorkerAsync(fil);
         }
+
+        private void сужениеToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new ErosionFilter();
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
+
+        private void медианныйФильтрToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new MedianFilter();
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
+
+        private void фильтрЩарраToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Filters fil = new ScharrFilter();
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
     }
 }

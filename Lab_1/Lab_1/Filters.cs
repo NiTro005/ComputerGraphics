@@ -262,4 +262,35 @@ namespace Lab_1
             return sourceImage.GetPixel(x, y);
         }
     }
+
+    internal class MedianFilter : Filters
+    {
+        protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
+        {
+            int radius = 1;
+            List<int> redValues = new List<int>();
+            List<int> greenValues = new List<int>();
+            List<int> blueValues = new List<int>();
+
+            for (int l = -radius; l <= radius; l++)
+            {
+                for (int k = -radius; k <= radius; k++)
+                {
+                    int Xneib = Clamp(x + k, 0, sourceImage.Width - 1);
+                    int Yneib = Clamp(y + l, 0, sourceImage.Height - 1);
+                    Color neibColor = sourceImage.GetPixel(Xneib, Yneib);
+                    redValues.Add(neibColor.R);
+                    greenValues.Add(neibColor.G);
+                    blueValues.Add(neibColor.B);
+                }
+            }
+
+            redValues.Sort();
+            greenValues.Sort();
+            blueValues.Sort();
+
+            int medianIndex = redValues.Count / 2;
+            return Color.FromArgb(redValues[medianIndex], greenValues[medianIndex], blueValues[medianIndex]);
+        }
+    }
 }
