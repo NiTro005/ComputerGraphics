@@ -17,6 +17,7 @@ namespace Lab_1
         public Form1()
         {
             InitializeComponent();
+            //image = new Bitmap("BFXLF29UBzc.jpg");
         }
 
         private void фильтрыToolStripMenuItem_Click(object sender, EventArgs e)
@@ -193,6 +194,12 @@ namespace Lab_1
         private void фильтрЩарраToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Filters fil = new ScharrFilter();
+            backgroundWorker1.RunWorkerAsync(fil);
+        }
+
+        private void стеклоToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filters fil = new GlassFilter();
             backgroundWorker1.RunWorkerAsync(fil);
         }
     }

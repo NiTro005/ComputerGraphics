@@ -293,4 +293,22 @@ namespace Lab_1
             return Color.FromArgb(redValues[medianIndex], greenValues[medianIndex], blueValues[medianIndex]);
         }
     }
+
+    internal class GlassFilter : Filters
+    {
+        private Random random = new Random();
+
+        protected override Color calculateNewPixelColor(Bitmap sourceImage, int x, int y)
+        {
+            int newX = x + (int)((random.NextDouble() - 0.5) * 10);
+            int newY = y + (int)((random.NextDouble() - 0.5) * 10);
+
+            newX = Clamp(newX, 0, sourceImage.Width - 1);
+            newY = Clamp(newY, 0, sourceImage.Height - 1);
+
+            Color sourceColor = sourceImage.GetPixel(newX, newY);
+
+            return sourceColor;
+        }
+    }
 }
