@@ -15,15 +15,12 @@ kotlin {
 }
 
 dependencies {
-    // LWJGL Core
     implementation("org.lwjgl:lwjgl:3.3.3")
     implementation("org.lwjgl:lwjgl-opengl:3.3.3")
     implementation("org.lwjgl:lwjgl-glfw:3.3.3")
 
-    // Математическая библиотека
     implementation("org.joml:joml:1.10.5")
 
-    // Нативные библиотеки для Windows
     runtimeOnly("org.lwjgl:lwjgl:3.3.3:natives-windows")
     runtimeOnly("org.lwjgl:lwjgl-opengl:3.3.3:natives-windows")
     runtimeOnly("org.lwjgl:lwjgl-glfw:3.3.3:natives-windows")

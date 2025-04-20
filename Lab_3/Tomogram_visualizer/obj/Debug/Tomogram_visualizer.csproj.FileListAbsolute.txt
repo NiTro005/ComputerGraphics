@@ -1,0 +1,28 @@
+C:\Users\nitro\Downloads\Telegram Desktop\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\obj\Debug\Tomogram_visualizer.csproj.AssemblyReference.cache
+C:\Users\nitro\Downloads\Telegram Desktop\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\obj\Debug\Viderman_tomogram_visualizer.Properties.Resources.resources
+C:\Users\nitro\Downloads\Telegram Desktop\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\obj\Debug\Tomogram_visualizer.csproj.GenerateResource.cache
+C:\Users\nitro\Downloads\Telegram Desktop\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\obj\Debug\Tomogram_visualizer.csproj.CoreCompileInputs.cache
+C:\Users\nitro\Downloads\Telegram Desktop\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\obj\Debug\Viderman_tomogram_visualizer.exe
+C:\Users\nitro\Downloads\Telegram Desktop\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\obj\Debug\Viderman_tomogram_visualizer.pdb
+C:\Users\nitro\Downloads\Telegram Desktop\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\obj\Debug\Tomogram_visualizer.Form1.resources
+C:\Users\nitro\Downloads\Telegram Desktop\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\bin\Debug\Viderman_tomogram_visualizer.exe.config
+C:\Users\nitro\Downloads\Telegram Desktop\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\bin\Debug\Viderman_tomogram_visualizer.exe
+C:\Users\nitro\Downloads\Telegram Desktop\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\bin\Debug\Viderman_tomogram_visualizer.pdb
+C:\Users\nitro\Downloads\Telegram Desktop\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\bin\Debug\OpenTK.Compatibility.dll
+C:\Users\nitro\Downloads\Telegram Desktop\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\bin\Debug\OpenTK.dll
+C:\Users\nitro\Downloads\Telegram Desktop\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\bin\Debug\OpenTK.GLControl.dll
+C:\Users\nitro\Downloads\Telegram Desktop\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\Viderman_tomogram_visualizer\obj\Debug\Tomogram.FFBCF66E.Up2Date
+C:\Sourse\github\ComputerGraphics\Lab_3\Lab_3\Viderman_tomogram_visualizer\bin\Debug\Viderman_tomogram_visualizer.exe.config
+C:\Sourse\github\ComputerGraphics\Lab_3\Lab_3\Viderman_tomogram_visualizer\bin\Debug\Viderman_tomogram_visualizer.exe
+C:\Sourse\github\ComputerGraphics\Lab_3\Lab_3\Viderman_tomogram_visualizer\bin\Debug\Viderman_tomogram_visualizer.pdb
+C:\Sourse\github\ComputerGraphics\Lab_3\Lab_3\Viderman_tomogram_visualizer\bin\Debug\OpenTK.Compatibility.dll
+C:\Sourse\github\ComputerGraphics\Lab_3\Lab_3\Viderman_tomogram_visualizer\bin\Debug\OpenTK.dll
+C:\Sourse\github\ComputerGraphics\Lab_3\Lab_3\Viderman_tomogram_visualizer\bin\Debug\OpenTK.GLControl.dll
+C:\Sourse\github\ComputerGraphics\Lab_3\Lab_3\Viderman_tomogram_visualizer\obj\Debug\Tomogram_visualizer.csproj.AssemblyReference.cache
+C:\Sourse\github\ComputerGraphics\Lab_3\Lab_3\Viderman_tomogram_visualizer\obj\Debug\Tomogram_visualizer.Form1.resources
+C:\Sourse\github\ComputerGraphics\Lab_3\Lab_3\Viderman_tomogram_visualizer\obj\Debug\Viderman_tomogram_visualizer.Properties.Resources.resources
+C:\Sourse\github\ComputerGraphics\Lab_3\Lab_3\Viderman_tomogram_visualizer\obj\Debug\Tomogram_visualizer.csproj.GenerateResource.cache
+C:\Sourse\github\ComputerGraphics\Lab_3\Lab_3\Viderman_tomogram_visualizer\obj\Debug\Tomogram_visualizer.csproj.CoreCompileInputs.cache
+C:\Sourse\github\ComputerGraphics\Lab_3\Lab_3\Viderman_tomogram_visualizer\obj\Debug\Tomogram.FFBCF66E.Up2Date
+C:\Sourse\github\ComputerGraphics\Lab_3\Lab_3\Viderman_tomogram_visualizer\obj\Debug\Viderman_tomogram_visualizer.exe
+C:\Sourse\github\ComputerGraphics\Lab_3\Lab_3\Viderman_tomogram_visualizer\obj\Debug\Viderman_tomogram_visualizer.pdb

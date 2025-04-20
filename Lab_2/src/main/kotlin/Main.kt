@@ -8,50 +8,78 @@ import org.joml.Matrix4f
 import org.joml.Vector3f
 
 fun main() {
-    // Инициализация GLFW
     if (!glfwInit()) {
         throw RuntimeException("Failed to initialize GLFW")
     }
 
-    // Настройка окна
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE)
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE)
 
-    val window = glfwCreateWindow(800, 600, "Colored 3D Cube", NULL, NULL)
+    val window = glfwCreateWindow(800, 600, "Lit 3D Cube", NULL, NULL)
         ?: throw RuntimeException("Failed to create GLFW window")
 
     glfwMakeContextCurrent(window)
     GL.createCapabilities()
     glEnable(GL_DEPTH_TEST)
 
-    // Вершинный шейдер
+    // Вершинный шейдер с освещением
     val vertexShaderSource = """
         #version 330 core
         layout (location = 0) in vec3 aPos;
-        layout (location = 1) in vec3 aColor;
-        out vec3 ourColor;
+        layout (location = 1) in vec3 aNormal;
+        
+        out vec3 Normal;
+        out vec3 FragPos;
+        
         uniform mat4 projection;
         uniform mat4 view;
         uniform mat4 model;
+        
         void main() {
             gl_Position = projection * view * model * vec4(aPos, 1.0);
-            ourColor = aColor;
+            FragPos = vec3(model * vec4(aPos, 1.0));
+            Normal = mat3(transpose(inverse(model))) * aNormal;
         }
     """.trimIndent()
 
-    // Фрагментный шейдер
+    // Фрагментный шейдер с освещением (Phong)
     val fragmentShaderSource = """
         #version 330 core
-        in vec3 ourColor;
+        in vec3 Normal;
+        in vec3 FragPos;
+        
         out vec4 FragColor;
+        
+        uniform vec3 lightPos;
+        uniform vec3 viewPos;
+        uniform vec3 lightColor;
+        uniform vec3 objectColor;
+        
         void main() {
-            FragColor = vec4(ourColor, 1.0);
+            // Ambient
+            float ambientStrength = 0.1;
+            vec3 ambient = ambientStrength * lightColor;
+            
+            // Diffuse 
+            vec3 norm = normalize(Normal);
+            vec3 lightDir = normalize(lightPos - FragPos);
+            float diff = max(dot(norm, lightDir), 0.0);
+            vec3 diffuse = diff * lightColor;
+            
+            // Specular
+            float specularStrength = 0.5;
+            vec3 viewDir = normalize(viewPos - FragPos);
+            vec3 reflectDir = reflect(-lightDir, norm);  
+            float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+            vec3 specular = specularStrength * spec * lightColor;  
+                
+            vec3 result = (ambient + diffuse + specular) * objectColor;
+            FragColor = vec4(result, 1.0);
         }
     """.trimIndent()
 
-    // Компиляция шейдеров
     val shaderProgram = glCreateProgram()
     val vertexShader = compileShader(vertexShaderSource, GL_VERTEX_SHADER)
     val fragmentShader = compileShader(fragmentShaderSource, GL_FRAGMENT_SHADER)
@@ -60,80 +88,71 @@ fun main() {
     glAttachShader(shaderProgram, fragmentShader)
     glLinkProgram(shaderProgram)
 
-    // Вершины куба с цветами (по 4 вершины на грань)
+    // Вершины куба с нормалями (без цветов, так как теперь используем освещение)
     val vertices = floatArrayOf(
-        // Передняя грань (красная)
-        -0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f, 0.0f,
+        // Позиции          // Нормали
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 
-        // Задняя грань (зеленая)
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-        0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+        0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+        0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+        0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
 
-        // Левая грань (синяя)
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 0.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
 
-        // Правая грань (желтая)
-        0.5f, -0.5f,  0.5f,  1.0f, 1.0f, 0.0f,
-        0.5f, -0.5f, -0.5f,  1.0f, 1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+        0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+        0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
 
-        // Верхняя грань (голубая)
-        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  0.0f, 1.0f, 1.0f,
-        0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+        0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
 
-        // Нижняя грань (пурпурная)
-        -0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 1.0f
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+        0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
     )
 
-    // Индексы вершин
-    val indices = intArrayOf(
-        0, 1, 2,  2, 3, 0,    // Передняя грань
-        4, 5, 6,  6, 7, 4,    // Задняя грань
-        8, 9,10, 10,11, 8,    // Левая грань
-        12,13,14, 14,15,12,    // Правая грань
-        16,17,18, 18,19,16,    // Верхняя грань
-        20,21,22, 22,23,20     // Нижняя грань
-    )
-
-    // Создание VAO, VBO и EBO
     val vao = glGenVertexArrays()
     val vbo = glGenBuffers()
-    val ebo = glGenBuffers()
 
     glBindVertexArray(vao)
 
     glBindBuffer(GL_ARRAY_BUFFER, vbo)
     glBufferData(GL_ARRAY_BUFFER, vertices, GL_STATIC_DRAW)
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo)
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW)
-
-    // Атрибут позиции
+    // Позиции вершин
     glVertexAttribPointer(0, 3, GL_FLOAT, false, 6 * 4, 0L)
     glEnableVertexAttribArray(0)
 
-    // Атрибут цвета
+    // Нормали вершин
     glVertexAttribPointer(1, 3, GL_FLOAT, false, 6 * 4, (3 * 4).toLong())
     glEnableVertexAttribArray(1)
 
     glBindBuffer(GL_ARRAY_BUFFER, 0)
     glBindVertexArray(0)
 
-    // Матрицы проекции и вида
     val projection = Matrix4f()
         .perspective(
             Math.toRadians(45.0).toFloat(),
@@ -145,7 +164,11 @@ fun main() {
     val view = Matrix4f()
         .translate(0.0f, 0.0f, -3.0f)
 
-    // Главный цикл рендеринга
+    // Параметры освещения
+    val lightPos = Vector3f(1.2f, 1.0f, 2.0f)
+    val lightColor = Vector3f(1.0f, 1.0f, 1.0f)
+    val objectColor = Vector3f(1.0f, 0.5f, 0.31f)
+
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f)
@@ -158,26 +181,26 @@ fun main() {
 
         glUseProgram(shaderProgram)
 
-        // Получаем location uniform-переменных
-        val projectionLoc = glGetUniformLocation(shaderProgram, "projection")
-        val viewLoc = glGetUniformLocation(shaderProgram, "view")
-        val modelLoc = glGetUniformLocation(shaderProgram, "model")
+        // Устанавливаем uniform-переменные
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), false, projection.get(FloatArray(16)))
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), false, view.get(FloatArray(16)))
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), false, model.get(FloatArray(16)))
 
-        glUniformMatrix4fv(projectionLoc, false, projection.get(FloatArray(16)))
-        glUniformMatrix4fv(viewLoc, false, view.get(FloatArray(16)))
-        glUniformMatrix4fv(modelLoc, false, model.get(FloatArray(16)))
+        // Параметры освещения
+        glUniform3f(glGetUniformLocation(shaderProgram, "lightPos"), lightPos.x, lightPos.y, lightPos.z)
+        glUniform3f(glGetUniformLocation(shaderProgram, "viewPos"), 0.0f, 0.0f, 3.0f)
+        glUniform3f(glGetUniformLocation(shaderProgram, "lightColor"), lightColor.x, lightColor.y, lightColor.z)
+        glUniform3f(glGetUniformLocation(shaderProgram, "objectColor"), objectColor.x, objectColor.y, objectColor.z)
 
         glBindVertexArray(vao)
-        glDrawElements(GL_TRIANGLES, indices.size, GL_UNSIGNED_INT, 0)
+        glDrawArrays(GL_TRIANGLES, 0, 36)
 
         glfwSwapBuffers(window)
         glfwPollEvents()
     }
 
-    // Освобождение ресурсов
     glDeleteVertexArrays(vao)
     glDeleteBuffers(vbo)
-    glDeleteBuffers(ebo)
     glDeleteProgram(shaderProgram)
     glDeleteShader(vertexShader)
     glDeleteShader(fragmentShader)
