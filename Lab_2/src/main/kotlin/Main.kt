@@ -98,15 +98,16 @@ fun main() {
         void main() {
             vec3 norm = normalize(Normal);
             vec3 viewDir = normalize(viewPos - FragPos);
+            vec3 lightDir = normalize(lightPos - FragPos);
 
             // Эффект стекла с небольшой прозрачностью
             float transparency = 0.3;
 
             // Небольшое преломление (искажение)
-            vec3 refracted = refract(-viewDir, norm, 1.0 / 1.52);
+            vec3 refracted = refract(lightDir, norm, 1.0 / 1.52);
 
             // Небольшое отражение
-            vec3 reflected = reflect(-viewDir, norm);
+            vec3 reflected = reflect(lightDir, norm);
             float reflectivity = 0.2;
 
             // Основа стекла
