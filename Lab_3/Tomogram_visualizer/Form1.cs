@@ -144,5 +144,9 @@ namespace Tomogram_visualizer
             glControl1.Invalidate();
         }
 
+        private void glControl1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

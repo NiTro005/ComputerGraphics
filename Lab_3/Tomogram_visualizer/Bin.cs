@@ -18,15 +18,12 @@ namespace Tomogram_visualizer
             {
                 BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open));
 
-                // Чтение размеров томограммы
                 X = reader.ReadInt32();
                 Y = reader.ReadInt32();
                 Z = reader.ReadInt32();
 
-                // Пропуск значений масштаба (например, 3 значения float на масштаб)
                 reader.BaseStream.Seek(3 * sizeof(float), SeekOrigin.Current);
 
-                // Чтение массива данных томограммы
                 int arraySize = X * Y * Z;
                 array = new short[arraySize];
 
