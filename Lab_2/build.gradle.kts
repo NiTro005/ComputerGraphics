@@ -16,17 +16,19 @@ kotlin {
 
 dependencies {
     implementation("org.lwjgl:lwjgl:3.3.3")
-    implementation("org.lwjgl:lwjgl-opengl:3.3.3")
+    implementation("org.lwjgl:lwjgl-assimp:3.3.3")
     implementation("org.lwjgl:lwjgl-glfw:3.3.3")
-
+    implementation("org.lwjgl:lwjgl-opengl:3.3.3")
+    implementation("org.lwjgl:lwjgl-stb:3.3.3")
     implementation("org.joml:joml:1.10.5")
 
     runtimeOnly("org.lwjgl:lwjgl:3.3.3:natives-windows")
-    runtimeOnly("org.lwjgl:lwjgl-opengl:3.3.3:natives-windows")
+    runtimeOnly("org.lwjgl:lwjgl-assimp:3.3.3:natives-windows")
     runtimeOnly("org.lwjgl:lwjgl-glfw:3.3.3:natives-windows")
-
-    testImplementation(kotlin("test"))
+    runtimeOnly("org.lwjgl:lwjgl-opengl:3.3.3:natives-windows")
+    runtimeOnly("org.lwjgl:lwjgl-stb:3.3.3:natives-windows")
 }
+
 
 application {
     mainClass.set("org.example.MainKt") // Укажите ваш main-класс
