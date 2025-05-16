@@ -93,7 +93,6 @@ fun main() {
             float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
             vec3 specular = specularStrength * spec * lightColor;
 
-            // Текстура (только для правого куба)
             vec3 texColor = texture(texture_diffuse, TexCoords).rgb;
             vec3 result = (ambient + diffuse + specular) * (isMetallic ? objectColor : mix(objectColor, texColor, 0.8));
 
@@ -159,7 +158,6 @@ fun main() {
     val objectShader = createShaderProgram(vertexShaderSource, fragmentShaderSource)
     val glassShader = createShaderProgram(glassVertexShaderSource, glassFragmentShaderSource)
 
-    // Вершины куба с текстурными координатами (добавлены в конец)
     val vertices = floatArrayOf(
         // Передняя грань
         -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
